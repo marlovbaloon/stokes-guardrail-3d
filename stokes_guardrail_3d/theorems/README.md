@@ -1,0 +1,5 @@
+# Extended Mathematical Theorems (Future Roadmap)
+- ftc.py: Fundamental Theorem of Calculus (Mass/Volume Conservation)
+- ftla.py: Fundamental Theorem of Linear Algebra (Null-Space Anomaly Detection)
+- godel.py: Gödel's Incompleteness (Provable Uncertainty Bounds)
+- gauss_bonnet.py: Gauss-Bonnet Theorem (Topological Curvature Guardrail)

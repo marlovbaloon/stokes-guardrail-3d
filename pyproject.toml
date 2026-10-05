@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stokes_guardrail_3d"
+version = "0.1.0"
+description = "Stokes' Theorem & Physics-Informed Feature Guardrails for 3D Brain MRI in PyTorch"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.20.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "monai>=1.0.0"
+]
