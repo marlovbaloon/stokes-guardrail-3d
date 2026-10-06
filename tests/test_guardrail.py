@@ -1,13 +1,12 @@
 import torch
 import torch.nn as nn
+
+# Import ตรงจากโมดูลเพื่อความชัวร์และไม่อิงกับ __init__.py สะอาดกว่า
+from stokes_guardrail_3d.ops.curl import DiscreteCurl3D
+from stokes_guardrail_3d.ops.divergence import DiscreteDivergence3D  # ปรับ path ตามโครงสร้างจริงของคุณ
 from stokes_guardrail_3d.losses.total import TotalObjectiveLoss
-from stokes_guardrail_3d import (
-    DiscreteCurl3D,
-    DiscreteDivergence3D,
-    HelmholtzGuardrailLoss,
-    LatentToVectorField3D,
-    TotalObjectiveLoss,
-)
+from stokes_guardrail_3d.losses.stokes import HelmholtzGuardrailLoss
+from stokes_guardrail_3d.models.projector import LatentToVectorField3D
 
 
 def test_curl_shape():
