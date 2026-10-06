@@ -1,5 +1,6 @@
 """Stokes' Guardrail Package for 3D Brain MRI Feature Regularization."""
 from .losses.stokes import HelmholtzGuardrailLoss
+from .losses.total import TotalObjectiveLoss
 from .ops.curl import DiscreteCurl3D
 from .ops.divergence import DiscreteDivergence3D
 from .ops.projector import LatentToVectorField3D
