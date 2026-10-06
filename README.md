@@ -60,6 +60,9 @@ stokes_guardrail_3d/
 ├── pyproject.toml               # Package build configurations
 ├── README.md                    # Project documentation
 ├── stokes_guardrail_3d/
+│   ├── adapters/            
+│   │   ├── __init__.py
+│   │   └── monai_wrapper.py    # MONAI Integration Wrapper
 │   ├── __init__.py              # Top-level API Exports
 │   ├── ops/
 │   │   ├── __init__.py
