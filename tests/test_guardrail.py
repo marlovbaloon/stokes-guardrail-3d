@@ -6,7 +6,7 @@ from stokes_guardrail_3d.ops.curl import DiscreteCurl3D
 from stokes_guardrail_3d.ops.divergence import DiscreteDivergence3D  # ปรับ path ตามโครงสร้างจริงของคุณ
 from stokes_guardrail_3d.losses.total import TotalObjectiveLoss
 from stokes_guardrail_3d.losses.stokes import HelmholtzGuardrailLoss
-from stokes_guardrail_3d.models.projector import LatentToVectorField3D
+from stokes_guardrail_3d.ops.projector import LatentToVectorField3D
 
 
 def test_curl_shape():
