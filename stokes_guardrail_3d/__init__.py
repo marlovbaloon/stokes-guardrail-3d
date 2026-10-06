@@ -9,5 +9,6 @@ __all__ = [
     "DiscreteCurl3D",
     "DiscreteDivergence3D",
     "HelmholtzGuardrailLoss",
+    "TotalObjectiveLoss"
 ]
 __version__ = "0.1.0"
