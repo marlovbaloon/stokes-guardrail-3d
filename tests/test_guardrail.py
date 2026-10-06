@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from stokes_guardrail_3d.losses.total import TotalObjectiveLoss
 from stokes_guardrail_3d import (
     DiscreteCurl3D,
     DiscreteDivergence3D,
