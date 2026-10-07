@@ -10,6 +10,8 @@ import torch.nn.functional as F
 import torch.fx as fx
 from typing import Dict, Any
 
+from .projector import LatentToVectorField3D
+
 
 class FusedStokesGuardrailIR(nn.Module):
     """
@@ -101,13 +103,22 @@ def optimize_stokes_graph_pass(model: nn.Module) -> nn.Module:
         if node.op == "call_module":
             orig_mod = traced.get_submodule(node.target)
             
-            # Identify candidates via mathematical signatures
-            if hasattr(orig_mod, "in_channels") and hasattr(orig_mod, "bound_mode"):
+            # Robust Type Checking: Directly check class instance or class name
+            is_target_module = isinstance(orig_mod, LatentToVectorField3D) or (
+                orig_mod.__class__.__name__ == "LatentToVectorField3D"
+            )
+            
+            if is_target_module:
                 # Construct the optimal IR replacement
                 fused_block = FusedStokesGuardrailIR(
                     in_channels=orig_mod.in_channels,
                     bound_mode=orig_mod.bound_mode
                 )
+                
+                # Copy projection weights if available
+                if hasattr(orig_mod, "proj"):
+                    fused_block.proj.load_state_dict(orig_mod.proj.state_dict())
+
                 modules_to_fused[node.target] = fused_block
 
     # Dynamic hot-swapping inside the computational graph
