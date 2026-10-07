@@ -141,7 +141,7 @@ pytest -v
 * [ ] **Extended Mathematical Theorems (`theorems/.tex`):**
 * Fundamental Theorem of Calculus (Volume Mass Conservation).
 * Gauss-Bonnet Curvature Constraints.
-* Ficci Flow Theorem.
+* Ricci Flow Theorem.
 
 
 
