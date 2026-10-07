@@ -138,9 +138,10 @@ pytest -v
 * [x] Integration of `DiscreteDivergence3D` for full Helmholtz Decomposition regularization ($\text{Curl} + \text{Divergence}$).
 * [x] **MONAI Pipeline Integration:** Native plug-and-play adapter for MONAI 3D UNet and Swin UNETR backbones.
 * [ ] **Clinical Dataset Benchmarking:** Validation on real-world brain MRI datasets (ADNI, BraTS, IXI) for out-of-distribution robustness.
-* [ ] **Extended Mathematical Theorems (`theorems/`):**
+* [ ] **Extended Mathematical Theorems (`theorems/.tex`):**
 * Fundamental Theorem of Calculus (Volume Mass Conservation).
 * Gauss-Bonnet Curvature Constraints.
+* Ficci Flow Theorem.
 
 
 
