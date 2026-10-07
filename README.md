@@ -136,7 +136,7 @@ pytest -v
 
 * [x] Implementation of `LatentToVectorField3D` projection block ($C \to 3$).
 * [x] Integration of `DiscreteDivergence3D` for full Helmholtz Decomposition regularization ($\text{Curl} + \text{Divergence}$).
-* [ ] **MONAI Pipeline Integration:** Native plug-and-play adapter for MONAI 3D UNet and Swin UNETR backbones.
+* [x] **MONAI Pipeline Integration:** Native plug-and-play adapter for MONAI 3D UNet and Swin UNETR backbones.
 * [ ] **Clinical Dataset Benchmarking:** Validation on real-world brain MRI datasets (ADNI, BraTS, IXI) for out-of-distribution robustness.
 * [ ] **Extended Mathematical Theorems (`theorems/`):**
 * Fundamental Theorem of Calculus (Volume Mass Conservation).
