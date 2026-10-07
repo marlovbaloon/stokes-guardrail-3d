@@ -1,12 +1,13 @@
 from .curl import DiscreteCurl3D
-from .projector import LatentToVectorField3D
 from .divergence import DiscreteDivergence3D
-from .ir import optimize_stokes_graph_pass, FusedStokesGuardrailIR # 
+from .projector import LatentToVectorField3D
+from .ricci import DiscreteRicciFlow3D, FusedRicciFlow3DIR, optimize_ricci_graph_pass
 
 __all__ = [
-    "DiscreteCurl3D", 
-    "LatentToVectorField3D", 
+    "DiscreteCurl3D",
     "DiscreteDivergence3D",
-    "optimize_stokes_graph_pass",
-    "FusedStokesGuardrailIR"
+    "LatentToVectorField3D",
+    "DiscreteRicciFlow3D",
+    "FusedRicciFlow3DIR",
+    "optimize_ricci_graph_pass"
 ]
