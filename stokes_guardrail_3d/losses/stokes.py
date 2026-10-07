@@ -27,30 +27,51 @@ class StokesGuardrailLoss(nn.Module):
         return torch.mean(penalty)
 
 class HelmholtzGuardrailLoss(nn.Module):
-    """Combines Curl Loss (Stokes) and Divergence Loss (Gauss)
-
-    L_helmholtz = L_curl + gamma * L_div
-    """
+    """Combines Curl Loss (Stokes) and Divergence Loss (Gauss) with Voxel-wise Mapping support."""
 
     def __init__(
-        self, tau_curl: float = 0.5, tau_div: float = 0.5, gamma: float = 1.0
+        self, 
+        tau_curl: float = 0.5, 
+        tau_div: float = 0.5, 
+        gamma: float = 1.0,
+        return_map: bool = False
     ):
         super().__init__()
         self.tau_curl = tau_curl
         self.tau_div = tau_div
         self.gamma = gamma
+        self.return_map = return_map
 
         self.curl_op = DiscreteCurl3D()
         self.div_op = DiscreteDivergence3D()
 
-    def forward(self, vector_field: torch.Tensor) -> torch.Tensor:
-        # Curl Penalty (Rotational Turbulence)
+    def forward(self, vector_field: torch.Tensor, roi_mask: torch.Tensor = None):
+        # 1. Compute Voxel-wise Fields
         curl_field = self.curl_op(vector_field)
-        curl_magnitude = torch.norm(curl_field, dim=1, keepdim=True)
-        l_curl = torch.mean(F.relu(curl_magnitude - self.tau_curl))
+        curl_map = F.relu(torch.norm(curl_field, dim=1, keepdim=True) - self.tau_curl)
 
-        # Divergence Penalty (Compressional / Expansional Anomaly)
         div_field = self.div_op(vector_field)
-        l_div = torch.mean(F.relu(torch.abs(div_field) - self.tau_div))
+        div_map = F.relu(torch.abs(div_field) - self.tau_div)
 
-        return l_curl + (self.gamma * l_div)
+        # 2. Regional Reduction via ROI Masking
+        if roi_mask is not None:
+            roi_vol = torch.sum(roi_mask, dim=(1, 2, 3, 4), keepdim=True) + 1e-8
+            l_curl = torch.sum(curl_map * roi_mask, dim=(1, 2, 3, 4), keepdim=True) / roi_vol
+            l_div = torch.sum(div_map * roi_mask, dim=(1, 2, 3, 4), keepdim=True) / roi_vol
+            
+            l_curl = torch.mean(l_curl)
+            l_div = torch.mean(l_div)
+        else:
+            l_curl = torch.mean(curl_map)
+            l_div = torch.mean(div_map)
+
+        total_loss = l_curl + (self.gamma * l_div)
+
+        if self.return_map:
+            return {
+                "loss": total_loss,
+                "curl_map": curl_map,    # (B, 1, D, H, W) Turbulence Map
+                "div_map": div_map       # (B, 1, D, H, W) Atrophy/Shrinkage Map
+            }
+
+        return total_loss
