@@ -1,3 +1,8 @@
+[project.urls]
+"Homepage" = "https://github.com/marlovbaloon/stokes-guardrail-3d"
+"Bug Tracker" = "https://github.com/marlovbaloon/stokes-guardrail-3d/issues"
+"Community Discussions" = "https://github.com/marlovbaloon/stokes-guardrail-3d/discussions"
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
