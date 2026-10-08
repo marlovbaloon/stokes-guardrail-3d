@@ -57,28 +57,36 @@ tests/test_guardrail.py::test_total_loss PASSED                                [
 
 ```text
 stokes_guardrail_3d/
-├── pyproject.toml               # Package build configurations
-├── README.md                    # Project documentation
+├── pyproject.toml                 # Package build configurations & dependencies
+├── README.md                      # Complete PyTorch/MONAI project documentation
+├── USAGE_GUIDE.md                 # Detailed API usage & Hyperparameter tuning guide
 ├── stokes_guardrail_3d/
+│   ├── __init__.py                # Top-level API Exports & Versioning
 │   ├── adapters/            
 │   │   ├── __init__.py
-│   │   └── monai_wrapper.py    # MONAI Integration Wrapper
-│   ├── __init__.py              # Top-level API Exports
+│   │   └── monai_wrapper.py       # MONAI UNet Integration Wrapper
 │   ├── ops/
 │   │   ├── __init__.py
-│   │   ├── curl.py              # 3D Discrete Curl Operator (∇ × F)
-│   │   ├── divergence.py        # 3D Discrete Divergence Operator (∇ · F)
-│   │   └── projector.py         # Latent-to-Vector-Field 3D Projection Block (C -> 3)
+│   │   ├── curl.py                # 3D Discrete Curl Operator (∇ × F)
+│   │   ├── divergence.py          # 3D Discrete Divergence Operator (∇ · F)
+│   │   ├── projector.py           # Latent-to-Vector-Field Projection Block (C -> 3)
+│   │   ├── ricci.py               # 3D Discrete Ricci Flow Operator (∂g/∂t = -2R_ij)
+│   │   ├── mass_flux.py           # Volume Flux & Divergence Density Operator
+│   │   ├── gauss_bonnet.py        # 3D Euler Characteristic & Gaussian Curvature Operator
+│   │   └── ir.py                  # Fused Grouped Conv3D IR Pass (torch.fx Graph Rewriting)
 │   ├── losses/
 │   │   ├── __init__.py
-│   │   ├── stokes.py            # Helmholtz / Stokes Guardrail Loss (L_helmholtz)
-│   │   ├── alignment.py         # Anatomical Alignment Loss (L_align)
-│   │   └── total.py             # Multi-Task Objective Loss (L_total)
+│   │   ├── stokes.py              # Helmholtz & Stokes Guardrail Losses
+│   │   ├── alignment.py           # Anatomical Directional Alignment Loss (∇I)
+│   │   ├── ricci.py               # Ricci Curvature Singularities Regularization Loss
+│   │   ├── mass_conservation.py   # Volume Mass Conservation & Net Flux Loss
+│   │   ├── gauss_bonnet.py        # Gauss-Bonnet Global Topology Preserving Loss
+│   │   └── total.py               # Multi-Task Objective Loss Pipeline
 │   └── theorems/
 │       ├── __init__.py
-│       └── README.md            # Advanced Mathematical Roadmap
+│       └── README.md              # Advanced Mathematical Foundations & Proofs Roadmap
 └── tests/
-    └── test_guardrail.py        # Complete Pytest test suite
+    └── test_guardrail.py          # Pytest validation suite
 
 ```
 
@@ -146,7 +154,18 @@ pytest -v
 
 
 ---
+## 🧪 Community Feedback & Research Collaboration
 
+This framework sits at the bleeding edge of applying **Differential Geometry and Pure Mathematics** as AI Guardrails. 
+
+Since this is an active research project, **your real-world feedback is invaluable!** 
+If you use `stokes-guardrail-3d` in your 3D Medical Imaging, MONAI, or PyTorch pipelines:
+- **Found a bug or training instability?** Please open a GitHub Issue!
+- **Got benchmark results or dataset edge cases?** Share them in Discussions!
+- **Have feature requests for new geometric constraints?** We’d love to collaborate!
+
+Your feedback directly shapes version `0.2.0+` and contributes to upcoming research publications. 
+---
 ## License
 
 This project is licensed under the Apache-2.0 License. See the [LICENSE] file for details.
