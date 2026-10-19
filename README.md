@@ -154,7 +154,7 @@ pytest -v
 
 
 ---
-## 🧪 Community Feedback & Research Collaboration
+## Community Feedback & Research Collaboration
 
 This framework sits at the bleeding edge of applying **Differential Geometry and Pure Mathematics** as AI Guardrails. 
 
@@ -165,6 +165,35 @@ If you use `stokes-guardrail-3d` in your 3D Medical Imaging, MONAI, or PyTorch p
 - **Have feature requests for new geometric constraints?** We’d love to collaborate!
 
 Your feedback directly shapes version `0.2.0+` and contributes to upcoming research publications. 
+---
+
+## Scientific Methodology & Scope Control Guide
+
+> **Addressing the "Black Box" Problem in Deep Learning Research**
+
+A common criticism of applying complex mathematical frameworks (such as Differential Geometry or Ricci Flow) to deep neural networks is the risk of introducing **black box complexity**—where multiple intertwined loss functions mask which underlying geometric constraint actually improves performance.
+
+If you are incorporating **stokes-guardrail-3d** into a small-scale research project, ablation study, or thesis, we strongly recommend following a strict **1-1-1 Isolation Framework**:
+
+$$\text{1 Hypothesis} \longrightarrow \text{1 Equation} \longrightarrow \text{1 Experiment}$$
+
+### The 1-1-1 Isolation Rule:
+
+1. **One Hypothesis:** Define a single, isolated problem regarding feature representation (e.g., *"Rotational noise in latent space causes overfitting to MRI scanner artifacts"*).
+2. **One Equation (Loss Function):** Test **only ONE** corresponding geometric operator at a time instead of enabling the entire multi-task loss pipeline ($\mathcal{L}_{\text{total}}$).
+   * *Example:* Test **only** $\mathcal{L}_{\text{curl}}$ (Rotational Turbulence Penalty) in isolation before attempting combined Helmholtz or Ricci Flow regularizations.
+3. **One Experiment:** Run a controlled baseline comparison (Standard Model vs. Standard Model + 1 Isolated Guardrail Loss) while holding all hyperparameters, seeds, and architectures constant.
+---
+### Recommended Experimental Roadmap for Researchers
+
+To prevent confounding variables and maintain mathematical interpretability:
+
+* **Step 1 (Divergence Only):** Test if penalizing spatial compressional/expansional anomalies ($\mathcal{L}_{\text{div}}$) improves boundary sharpness.
+* **Step 2 (Curl Only):** Test if penalizing spatial rotational turbulence ($\mathcal{L}_{\text{curl}}$) reduces high-frequency latent noise.
+* **Step 3 (Combined Helmholtz):** Only combine both into the full Helmholtz Guardrail ($\mathcal{L}_{\text{helmholtz}}$) *after* proving that both individual operators yield measurable improvements independently.
+
+By isolating each operator, you maintain full scientific transparency, eliminate black-box ambiguity, and clearly demonstrate the exact theoretical mechanism driving your empirical gains.
+
 ---
 ## License
 
